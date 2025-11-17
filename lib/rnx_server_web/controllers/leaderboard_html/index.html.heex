@@ -1,0 +1,21 @@
+<.header>
+  Leaderboard
+  <:subtitle>Top 100 Players (<%= @game_mode %>)</:subtitle>
+</.header>
+
+<.table id="leaderboard" rows={@users}>
+  <:col :let={{_user, index}} label="#">
+    <%= index + 1 %>
+  </:col>
+  <:col :let={{user, _index}} label="Player">
+    <.link href={~p"/users/#{user.id}"} class="font-semibold text-primary">
+      <div class="flex items-center gap-3">
+        <img src={user.pfp_url || ~p"/images/logo.svg"} class="w-8 h-8 rounded-full" />
+        <span><%= user.username %></span>
+      </div>
+    </.link>
+  </:col>
+  <:col :let={{user, _index}} label="Rating (SC)">
+    <%= Float.round(user.mmr, 2) %>
+  </:col>
+</.table>

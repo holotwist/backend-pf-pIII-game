@@ -1,0 +1,26 @@
+<.header>
+  <%= @user.username %>
+  <:subtitle>Perfil de Jugador</:subtitle>
+  <:actions>
+    <%= if @current_user && @current_user.id == @user.id do %>
+      <.link href={~p"/users/settings"} class="btn btn-primary">
+        Editar Perfil
+      </.link>
+    <% end %>
+  </:actions>
+</.header>
+
+<div class="grid grid-cols-3 gap-8 items-start">
+  <div class="col-span-1">
+    <img src={@user.pfp_url || ~p"/images/logo.svg"} alt={"Foto de perfil de #{@user.username}"} class="rounded-lg shadow-lg" />
+  </div>
+
+  <div class="col-span-2">
+    <.list>
+      <:item title="Rating (SC)"><%= Float.round(@user.mmr, 2) %></:item>
+      <:item title="Desviación (RD)"><%= Float.round(@user.mmr_rd, 2) %></:item>
+      <:item title="Volatilidad"><%= @user.mmr_volatility %></:item>
+      <:item title="Miembro desde"><%= pretty_date(@user.inserted_at) %></:item>
+    </.list>
+  </div>
+</div>

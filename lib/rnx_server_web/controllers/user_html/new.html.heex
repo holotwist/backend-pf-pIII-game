@@ -1,0 +1,27 @@
+<.flash kind={:error} title="Error de Registro" flash={@flash} />
+
+<h1 class="text-2xl">Crear Cuenta para RNX</h1>
+
+<div>
+  <.form :let={f} for={@changeset} action={~p"/users/register"} class="space-y-6">
+    <%= if @token do %>
+      <input type="hidden" name="token" value={@token} />
+    <% end %>
+
+    <.input field={f[:username]} type="text" label="Username" />
+    <.input field={f[:email]} type="email" label="Email" />
+    <.input field={f[:password]} type="password" label="Contraseña" />
+    <.input field={f[:password_confirmation]} type="password" label="Confirmar Contraseña" />
+
+    <div class="mt-4">
+      <.button variant="primary">Crear Cuenta</.button>
+    </div>
+  </.form>
+</div>
+
+<div class="mt-4">
+  <p>
+    ¿Ya tienes una cuenta?
+    <.link href={~p"/auth/login?#{[token: @token]}"}>Inicia sesión aquí.</.link>
+  </p>
+</div>
